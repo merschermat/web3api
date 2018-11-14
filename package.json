@@ -1,0 +1,32 @@
+{
+  "name": "api-web",
+  "version": "1.0.0",
+  "description": "API para o trabalho 3 de web",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merschermat/web3api.git"
+  },
+  "keywords": [
+    "api"
+  ],
+  "author": "Mateus Merscher",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/merschermat/web3api/issues"
+  },
+  "homepage": "https://github.com/merschermat/web3api#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.6",
+    "mongoose": "^5.3.11"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  }
+}
