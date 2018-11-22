@@ -1,7 +1,5 @@
 const mongoose = require('mongoose')
-const uri = 'mongodb://tester:test123@ds157853.mlab.com:57853/repartinapp'
-
-const House = require('../Schemas/House').House
+const uri = 'mongodb://127.0.0.1:27017'
 
 function connectionOpen() {
     mongoose.connect(uri);

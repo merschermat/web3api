@@ -1,5 +1,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
+const firebase = require('./BD/firebaseFunctions')
+let userToken;
 const app = express();
 const port = 8080;
 app.use(bodyParser.json())
@@ -9,10 +11,19 @@ const data = require('./BD/connection');
 
 data.connectionOpen();
 
-app.get('/', (req, res) =>{})
+app.post('/auth', (req, res) =>{
+    email = req.body.params.email;
+    password = req.body.params.password;
+    firebase.validaLogin(email, password)
+    res.redirect("~/admin/");
+})
 app.post('/create/user', (req,res) =>{
-    User.createUser(req.body, res)
-    res.send('u got it')
+    email = req.body.email;
+    password = req.body.password;
+    username = req.body.username;
+    firebase.validaSignup(email, password, username).then(valid =>{
+        res.send(valid)
+    })
 } )
 app.get('/search/user/:houseID', (req,res) =>{
     User.getUsers(req, res)
@@ -29,4 +40,4 @@ app.delete('/user', function (req, res) {
     res.send('Got a DELETE request at /user')
 })
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => console.log(`Faz requisição aqui ${port} meu mano!`))

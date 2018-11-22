@@ -1,20 +1,46 @@
 const User = require('./User').User
 
-function createUser (req, res){
-    let userdb = new User(req);
-    console.log(userdb)
+function createUser(username, email, date) {
+    let userdb = new User({
+        "username": username,
+        "email": email,
+        "created": date,
+        "removed": false
+    });
     User.insertMany(userdb);
 }
-function getUsers (req, res){
-    console.log("vai toma no olho do cu")
-    let list = User.find({houseID: req.params.houseID}.sort({
-        name: 1
-    }))
-    console.log(list)
-    res.status(200).send({"ok":"ok"})
+
+function getUsers(user) {
+    return User.find({
+        username: user
+    })
 }
 
+function getOne(user) {
+    return User.findOne({
+        username: user
+    })
+}
+
+function updateUser(user) {
+    User.updateOne({
+        username: user.username
+    }, {
+        $set: {
+            "email": email,
+            "created": user.date
+        }
+    })
+}
+function deleteUser (user){
+    User.deleteOne({
+        "username" : user.username
+    })
+}
 module.exports = {
     createUser,
-    getUsers
-} 
+    getUsers,
+    getOne,
+    updateUser,
+    deleteUser
+}

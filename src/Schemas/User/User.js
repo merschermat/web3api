@@ -2,10 +2,9 @@ const mongoose = require('mongoose')
 
 // Create user schema 
 const userSchema = mongoose.Schema({
-    name: String,
+    username: String,
     email: String,
-    token: Date,
-    houseID: Number,
+    created: Date,
     removed: Boolean
 });
 var User = mongoose.model('users', userSchema);
