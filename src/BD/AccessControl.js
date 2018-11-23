@@ -1,5 +1,6 @@
 function create(model, data) {
-    model.insertMany(data);
+    let obj = new model(data);
+    return model.insertMany(obj)
 }
 
 function get(model, username) {
@@ -19,8 +20,7 @@ function update(model,username) {
         username: username
     }, {
         $set: {
-            "email": email,
-            "created": Link.date
+
         }
     })
 }

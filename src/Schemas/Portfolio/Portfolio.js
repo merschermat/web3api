@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 // Create portfolio schema 
 const portfolioSchema = mongoose.Schema({
     username: String,
-    name: String,
+    title: String,
     date: Date,
     desc: String,
     created: Date,

@@ -7,6 +7,6 @@ const photoSchema = mongoose.Schema({
     created: Date,
     removed: Boolean
 });
-var Photo = mongoose.model('photos', photosSchema);
+var Photo = mongoose.model('photos', photoSchema);
 
 module.exports.Photo = Photo;

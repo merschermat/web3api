@@ -36,30 +36,14 @@ function validaSignup(email, password, username) {
 
 
 function validaLogin(email, senha) {
-    const login_error = document.getElementById('login_error');
-    login_error.innerText = '';
+    return firebase.auth().signInWithEmailAndPassword(email, senha).then(data => {
+        return [data.user.uid, "logado"]
+    }).catch(function (error) {
+        if (error != null) {
+            return "Email ou senha invalidos"
+        }
+    });
 
-    if (validation.validateLogin() && loginCounter.isWaiting()) {
-        let validaPath = false;
-        const login_form = document.getElementById('login_form');
-
-        login_form.classList.add('loading');
-
-        firebase.auth().signInWithEmailAndPassword(email, senha).then(function () {
-            ipcRenderer.send('abrir-home');
-        }).catch(function (error) {
-            if (error != null) {
-                login_form.classList.remove('loading');
-                login_error.innerText = 'Email ou senha invalídos';
-                senha.value = '';
-                email.classList.remove('success');
-                senha.classList.remove('success', 'error');
-                document.querySelector('label[for="senha"]').classList.remove('active');
-                email.focus();
-                loginCounter.count();
-            }
-        });
-    }
 }
 
 function logOut() {

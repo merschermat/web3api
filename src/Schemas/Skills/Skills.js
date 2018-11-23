@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 // Create skills schema 
 const skillsSchema = mongoose.Schema({
     username: String,
-    skills:[],
+    skills: String,
     created: Date,
     removed: Boolean
 });

@@ -3,7 +3,8 @@ const mongoose = require('mongoose')
 // Create idioms schema 
 const idiomSchema = mongoose.Schema({
     username: String,
-    Idioms:[],
+    Idioms: String,
+    Nivel : String,
     created: Date,
     removed: Boolean
 });
