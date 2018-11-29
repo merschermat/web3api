@@ -22,6 +22,7 @@
   "homepage": "https://github.com/merschermat/web3api#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.3",
     "firebase": "^5.5.9",
     "mongodb": "^3.1.6",

@@ -3,10 +3,13 @@ const express = require('express')
 const firebase = require('./BD/Actions')
 const Control = require('./BD/AccessControl')
 const scheme = require('./models')
-let userToken = null;
+var cors = require('cors');
+
+let user = "merscher";
 const app = express();
 const port = 8080;
 app.use(bodyParser.json())
+app.use(cors())
 app.use(bodyParser.urlencoded({
     extended: true
 }))
@@ -22,13 +25,18 @@ app.post('/auth', (req, res) => {
         if (valid.length < 2)
             res.send(valid)
         else{
-            userToken = valid[0];
-            console.log(userToken)
+            // user = valid[0];
+            console.log(user)
             res.redirect("http://localhost:3000/admin");
         }
             
     })
 })
+// app.put('/Skills',(req, res) =>{
+//     Control.update(scheme.Skills, req.body.data).then(()=>{
+//         res.send("valid")
+//     })
+// })
 app.post('/create/user', (req, res) => {
     email = req.body.email;
     password = req.body.password;
@@ -39,24 +47,35 @@ app.post('/create/user', (req, res) => {
 })
 app.post('/add/Idiom', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "Idioms" : req.body.idioms,
         "Nivel" : req.body.nivel,
-        "created" :  Date.now(),
+        
+  "created" :  Date.now(),
         "removed" : false
     }
     Control.create(scheme.Idiom, info).then(() => {
         res.send("valid")
     })
 })
-app.get('/Idiom/:name', (req, res) => {
-    Control.get(scheme.Idiom, req.params.name).then(list =>{
+app.put('/Idiom',(req, res) =>{
+    Control.update(scheme.Idiom, req.body.data).then(()=>{
+        res.send("valid")
+    })
+})
+app.get('/Idiom/', (req, res) => {
+    Control.get(scheme.Idiom, user).then(list =>{
         res.send(list);
     })
 })
-app.post('/add/Bio', (req, res) => {
+app.put('/Biografia',(req, res) =>{
+    Control.update(scheme.Bio, req.body).then(()=>{
+        res.send("valid")
+    })
+})
+app.post('/add/Biografia', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "text" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -65,14 +84,19 @@ app.post('/add/Bio', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Bio/:name', (req, res) => {
-    Control.get(scheme.Bio, req.params.name).then(list =>{
+app.get('/Biografia/', (req, res) => {
+    Control.get(scheme.Bio, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/MinBio',(req, res) =>{
+    Control.update(scheme.MinBio, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/MinBio', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "text" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -81,14 +105,19 @@ app.post('/add/MinBio', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/MinBio/:name', (req, res) => {
-    Control.get(scheme.MinBio, req.params.name).then(list =>{
+app.get('/MinBio/', (req, res) => {
+    Control.get(scheme.MinBio, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Link',(req, res) =>{
+    Control.update(scheme.Link, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Link', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "Link" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -97,14 +126,19 @@ app.post('/add/Link', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Link/:name', (req, res) => {
-    Control.get(scheme.Link, req.params.name).then(list =>{
+app.get('/Link/', (req, res) => {
+    Control.get(scheme.Link, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Skills',(req, res) =>{
+    Control.update(scheme.Skills, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Skills', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "skills" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -113,14 +147,19 @@ app.post('/add/Skills', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Skills/:name', (req, res) => {
-    Control.get(scheme.Skills, req.params.name).then(list =>{
+app.get('/Skills/', (req, res) => {
+    Control.get(scheme.Skills, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Interest',(req, res) =>{
+    Control.update(scheme.Interest, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Interest', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "Interests" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -129,14 +168,19 @@ app.post('/add/Interest', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Interest/:name', (req, res) => {
-    Control.get(scheme.Interest, req.params.name).then(list =>{
+app.get('/Interest/', (req, res) => {
+    Control.get(scheme.Interest, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Degree',(req, res) =>{
+    Control.update(scheme.Degree, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Degree', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "institutions" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -145,14 +189,19 @@ app.post('/add/Degree', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Degree/:name', (req, res) => {
-    Control.get(scheme.Degree, req.params.name).then(list =>{
+app.get('/Degree/', (req, res) => {
+    Control.get(scheme.Degree, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/More',(req, res) =>{
+    Control.update(scheme.More, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/More', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "text" : req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -161,14 +210,19 @@ app.post('/add/More', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/More/:name', (req, res) => {
-    Control.get(scheme.More, req.params.name).then(list =>{
+app.get('/More/', (req, res) => {
+    Control.get(scheme.More, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Portfolio',(req, res) =>{
+    Control.update(scheme.Portfolio, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Portfolio', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "title": req.body.title,
         "date": req.body.date,
         "desc": req.body.desc,
@@ -179,14 +233,19 @@ app.post('/add/Portfolio', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Portfolio/:name', (req, res) => {
-    Control.get(scheme.Portfolio, req.params.name).then(list =>{
+app.get('/Portfolio/', (req, res) => {
+    Control
+    app.put('/Skills',(req, res) =>{
+    Control.update(scheme.Skills, req.body.data).then(()=>{
+        res.send("valid")
+    })
+}).get(scheme.Portfolio, user).then(list =>{
         res.send(list);
     })
 })
 app.post('/add/Work', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "text": req.body.text,
         "created" :  Date.now(),
         "removed" : false
@@ -195,14 +254,19 @@ app.post('/add/Work', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Work/:name', (req, res) => {
-    Control.get(scheme.Work, req.params.name).then(list =>{
+app.get('/Work/', (req, res) => {
+    Control.get(scheme.Work, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Work',(req, res) =>{
+    Control.update(scheme.Work, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 app.post('/add/Photo', (req, res) => {
     info = {
-        "username" : req.body.username,
+        "username" : user,
         "photo": req.body.photo,
         "created" :  Date.now(),
         "removed" : false
@@ -211,9 +275,14 @@ app.post('/add/Photo', (req, res) => {
         res.send("valid")
     })
 })
-app.get('/Photo/:name', (req, res) => {
-    Control.get(scheme.Photo, req.params.name).then(list =>{
+app.get('/Photo/', (req, res) => {
+    Control.get(scheme.Photo, user).then(list =>{
         res.send(list);
+    })
+})
+app.put('/Photo',(req, res) =>{
+    Control.update(scheme.Photo, req.body.data).then(()=>{
+        res.send("valid")
     })
 })
 

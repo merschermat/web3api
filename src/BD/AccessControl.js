@@ -15,14 +15,8 @@ function getOne(model,username) {
     })
 }
 
-function update(model,username) {
-    model.updateOne({
-        username: username
-    }, {
-        $set: {
-
-        }
-    })
+function update(model, obj) {
+    return model.findByIdAndUpdate(obj._id, obj, upsert = true);
 }
 function deleteOne(model,username){
     model.deleteOne({

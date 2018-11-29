@@ -37,7 +37,9 @@ function validaSignup(email, password, username) {
 
 function validaLogin(email, senha) {
     return firebase.auth().signInWithEmailAndPassword(email, senha).then(data => {
-        return [data.user.uid, "logado"]
+        return User.getOne({
+            "email" : email
+        })
     }).catch(function (error) {
         if (error != null) {
             return "Email ou senha invalidos"
@@ -48,7 +50,6 @@ function validaLogin(email, senha) {
 
 function logOut() {
     firebase.auth().signOut();
-    ipcRenderer.send('logout');
 }
 
 function addContato(uid, email, callback, notification) {

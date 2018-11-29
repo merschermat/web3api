@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const uri = 'mongodb://127.0.0.1:27017'
+const uri = 'mongodb://mateus:abc123@ds051740.mlab.com:51740/web3api'
 
 function connectionOpen() {
     mongoose.connect(uri);
